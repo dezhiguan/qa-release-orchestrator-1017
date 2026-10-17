@@ -8,7 +8,7 @@ async def test_execute_normal_flow():
     # Mock context
     ctx = MagicMock()
     ctx.prompt = AsyncMock(return_value=MagicMock(
-        compile=AsyncMock(return_value="You are a release orchestrator. Output only {\"decision\": \"COORDINATE\"} if all checks pass.")
+        compile=MagicMock(return_value="You are a release orchestrator. Output only {\"decision\": \"COORDINATE\"} if all checks pass.")
     ))
     ctx.tools.call = AsyncMock(side_effect=[
         {"id": "DF-1001", "status": "completed"},
@@ -37,7 +37,7 @@ async def test_execute_normal_flow():
 @pytest.mark.asyncio
 async def test_execute_blocked_on_missing_task_id():
     ctx = MagicMock()
-    ctx.prompt = AsyncMock(return_value=MagicMock(compile=AsyncMock(return_value="prompt")))
+    ctx.prompt = AsyncMock(return_value=MagicMock(compile=MagicMock(return_value="prompt")))
     ctx.tools.call = AsyncMock()
     ctx.delegate = AsyncMock()
     ctx.manifest.spec.delegates = ["qa-devops-investigator-1017"]
